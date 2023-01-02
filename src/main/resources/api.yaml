@@ -1,0 +1,155 @@
+openapi: 3.0.3
+info:
+  title: My Blog
+  description: |-
+    This is the API for my blog
+  contact:
+    email: eryck_kazeker@hotmail.com
+  version: 0.1.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: author
+    description: Everything about blog authors
+  - name: post
+    description: Manage the posts
+paths:
+  /authors:
+    post:
+      tags:
+        - author
+      summary: Create an author
+      description: Create an author
+      operationId: postAuthor
+      requestBody:
+        description: Create an author
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+        required: true
+      responses:
+        '201':
+          description: Author created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        '500':
+          description: Internal Server Error
+    get:
+      tags:
+        - author
+      summary: Get list of all authors
+      description: Get list of all authors
+      operationId: getAuthors
+      responses:
+        '200':
+          description: List of authors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AuthorListItem'
+        '500':
+          description: Internal Server Error
+  /authors/{id}:
+    get:
+      operationId: getAuthor
+      description: Get author by id
+      parameters:
+        - in: path
+          description: the id of the author
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Author found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        '404':
+          description: Author not found
+        '500':
+          description: Internal Server Error
+    delete:
+      operationId: deleteAuthor
+      description: Delete an author by id
+      parameters:
+        - in: path
+          description: the id of the author
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Author deleted
+        '404':
+          description: Author not found
+        '500':
+          description: Internal Server Error
+    put:
+      operationId: updateAuthor
+      description: Update author information
+      parameters:
+        - in: path
+          description: the id of the author
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        description: Create an author
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Author'
+      responses:
+        '200':
+          description: Author deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+        '404':
+          description: Author not found
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          minLength: 3
+          maxLength: 50
+        description:
+          type: string
+          minLength: 0
+          maxLength: 100
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+        password:
+          type: string
+          minLength: 6
+          maxLength: 50
+    AuthorListItem:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        name:
+          type: string
+    
