@@ -1,0 +1,28 @@
+POST http://localhost:8080/authors HTTP/1.1
+content-type: application/json
+
+{
+	"name":"New Contributor",
+	"description": "The second blog contributor",
+	"username": "ncontrib",
+	"password": "loj4h2i534g"
+}
+
+###
+
+GET http://localhost:8080/authors HTTP/1.1
+###
+GET http://localhost:8080/authors/63a4b84210a94a6c05ea8e60 HTTP/1.1
+
+###
+DELETE http://localhost:8080/authors/63a4bb1e11dd5a43e6389479 HTTP/1.1
+###
+PUT http://localhost:8080/authors/63a4b84210a94a6c05ea8e60 HTTP/1.1
+content-type: application/json
+
+{
+	"name": "Shadow Writer Updated",
+  "description": "A very misterious blog contributor, with new info",
+  "username": "swriter2.0",
+  "password": "blabla"
+}
